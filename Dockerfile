@@ -14,8 +14,8 @@ COPY --from=builder /usr/local/bin /usr/local/bin
 WORKDIR /app
 COPY backend/src ./src
 
+ENV PYTHONPATH=/app/src
+
 EXPOSE 8800
 
 CMD ["uvicorn", "my_note.main:app", "--host", "0.0.0.0", "--port", "8800"]
-
-ENV PYTHONPATH=/app/src
