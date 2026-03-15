@@ -90,7 +90,8 @@ export default function ProjectDetail() {
         &larr; All projects
       </Link>
 
-      <div className="mb-6">
+      <div className="mb-6 flex items-start justify-between">
+        <div>
         <h1 className="text-2xl font-bold">{project.name}</h1>
         {project.description && (
           <p className="mt-1 text-gray-500">{project.description}</p>
@@ -111,6 +112,13 @@ export default function ProjectDetail() {
             })}
           </span>
         </div>
+        </div>
+        <Link
+          to={`/projects/${project.id}/query`}
+          className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-blue-700"
+        >
+          Query Project
+        </Link>
       </div>
 
       {/* Ingest Panel */}
