@@ -36,11 +36,13 @@ The core value is **persistent project understanding that grows with every docum
 ### Current Phase
 Phase 1 — Core ingestion pipeline + frontend scaffolding in parallel.
 
-### Progress (Cycle 26)
-- **Ticket #1 (Scaffolding v2)**: MERGED ✅ — blocker resolved
-- **Tickets #2 (SQLite), #3 (Extraction), #4 (Qdrant), #7 (Health)**: All `in_progress` since ~11:51 UTC
+### Progress (Cycle 27)
+- **Ticket #1 (Scaffolding v2)**: MERGED ✅
+- **Ticket #7 (Health endpoint)**: MERGED ✅
+- **Tickets #2 (SQLite), #3 (Extraction), #4 (Qdrant)**: `in_progress` since ~11:51 UTC
+- **Ticket #9 (Frontend scaffolding)**: STARTED this cycle
 - **Tickets #5, #6, #8**: `todo`, correctly waiting on upstream
-- **Frontend tickets**: Created this cycle — scaffolding, dashboard/upload UI, query UI
+- **Tickets #10, #11**: `todo`, waiting on #9
 
 ### Active Decisions
 - Ticket #1-v2 Dockerfile fix: use `uv sync --system` (not `uv pip install -r pyproject.toml`)
@@ -50,23 +52,25 @@ Phase 1 — Core ingestion pipeline + frontend scaffolding in parallel.
 
 ### Known Blockers and Risks
 - **RESOLVED:** Original Ticket #1 scaffolding blocker (Cycle 25)
+- **RESOLVED:** Ticket #7 health endpoint (Cycle 27)
 - **ACTIVE RISK:** 5+ PO process restarts detected — elevated system instability
-- **WATCH:** 4 backend tickets running simultaneously — monitor for integration conflicts
+- **WATCH:** 3 backend tickets running simultaneously (#2, #3, #4) — monitor for integration conflicts
 - **WATCH:** Frontend tickets created without explicit dependency on backend endpoints — will need integration testing
 
 ### Deployment Decision
 Docker Compose local deployment. Backend on port 8800. Qdrant on port 6333 (internal only). Frontend served as static files by FastAPI in production. Multi-stage Docker build for frontend assets.
 
 ## Upcoming Plan
-1. **This cycle:** Monitor 4 in-progress backend tickets; start frontend scaffolding
+1. **This cycle:** Started #9 (frontend scaffolding); monitor 3 in-progress backend tickets
 2. **When #2/#3/#4 merge:** Start Ticket #5 (ingest endpoint), then #8 (query endpoint)
 3. **When #5/#8 merge:** Start Ticket #6 (agent loop)
-4. **Frontend:** Scaffolding → dashboard UI → query UI (can overlap with backend)
+4. **When #9 merges:** Start #10 (dashboard UI) and #11 (query UI)
 
 ## Completed Work Log
 - Cycle 19: Original Ticket #1 reached review status
 - Cycles 20-24: Ticket #1 stuck in review — merge queue failing silently
 - Cycle 25: ESCALATION — Stopped Ticket #1, created replacement scaffolding ticket (v2)
 - Cycle 26: Scaffolding v2 merged; 4 backend tickets started; 3 frontend tickets created
+- Cycle 27: Ticket #7 merged; started Ticket #9 (frontend scaffolding)
 
 <!-- PO_SECTION_END -->
