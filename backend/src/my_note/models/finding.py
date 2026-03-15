@@ -4,6 +4,8 @@ from pydantic import BaseModel, Field
 
 
 class FindingCreate(BaseModel):
+    """Request model for creating a new finding."""
+
     project_id: str
     type: str = Field(..., pattern=r"^(risk|gap|conflict|insight)$")
     content: str
@@ -12,6 +14,8 @@ class FindingCreate(BaseModel):
 
 
 class FindingResponse(BaseModel):
+    """Response model for a single finding."""
+
     id: str
     project_id: str
     type: str
@@ -25,5 +29,13 @@ class FindingResponse(BaseModel):
 
 
 class FindingUpdate(BaseModel):
+    """Request model for updating a finding's status or annotation."""
+
     status: str | None = Field(None, pattern=r"^(open|acknowledged|resolved)$")
     annotation: str | None = None
+
+
+class FindingListResponse(BaseModel):
+    """Response model for listing findings."""
+
+    findings: list[FindingResponse]

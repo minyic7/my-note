@@ -6,5 +6,7 @@ dist/
 build/
 .pytest_cache/
 *.db
+*.db-wal
+*.db-shm
 .env
 node_modules/

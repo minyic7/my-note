@@ -4,6 +4,8 @@ from pydantic import BaseModel, Field
 
 
 class DocumentCreate(BaseModel):
+    """Request model for creating a new document."""
+
     project_id: str
     title: str | None = None
     source_type: str = Field(..., pattern=r"^(pdf|url|code|text|docx)$")
@@ -12,6 +14,8 @@ class DocumentCreate(BaseModel):
 
 
 class DocumentResponse(BaseModel):
+    """Response model for a single document."""
+
     id: str
     project_id: str
     title: str | None = None
@@ -25,6 +29,14 @@ class DocumentResponse(BaseModel):
 
 
 class DocumentStatusUpdate(BaseModel):
+    """Request model for updating document analysis status."""
+
     analysis_done: int = Field(..., ge=0, le=2)
     error_message: str | None = None
     chunk_count: int | None = None
+
+
+class DocumentListResponse(BaseModel):
+    """Response model for listing documents."""
+
+    documents: list[DocumentResponse]

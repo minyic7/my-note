@@ -25,12 +25,12 @@ async def lifespan(app: FastAPI):
     from my_note.services.knowledge_db import KnowledgeDB
 
     db_path = str(data_dir / "knowledge.db")
-    app.state.db = await KnowledgeDB.init_db(db_path)
+    app.state.knowledge_db = await KnowledgeDB.init_db(db_path)
 
     yield
 
     # Shutdown: close database
-    await app.state.db.close()
+    await app.state.knowledge_db.close()
 
     # Shutdown: cancel agent task if running
     global _agent_task  # noqa: PLW0603
