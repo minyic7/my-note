@@ -34,34 +34,39 @@ The core value is **persistent project understanding that grows with every docum
 ## PO Memory
 
 ### Current Phase
-Phase 1 — Core ingestion pipeline. Escalation executed at Cycle 25.
+Phase 1 — Core ingestion pipeline + frontend scaffolding in parallel.
 
-### Progress (Cycle 25)
-- **Ticket #1 (Original scaffolding)**: STOPPED — was stuck in `review` for 6 cycles (19→25). Merge queue never resolved.
-- **Ticket #1-v2 (Replacement scaffolding)**: CREATED this cycle. Identical scope + Dockerfile fix (`uv sync --system`).
-- Tickets #2–#8: `todo / po_proposed`, blocked on scaffolding completion.
+### Progress (Cycle 26)
+- **Ticket #1 (Scaffolding v2)**: MERGED ✅ — blocker resolved
+- **Tickets #2 (SQLite), #3 (Extraction), #4 (Qdrant), #7 (Health)**: All `in_progress` since ~11:51 UTC
+- **Tickets #5, #6, #8**: `todo`, correctly waiting on upstream
+- **Frontend tickets**: Created this cycle — scaffolding, dashboard/upload UI, query UI
 
 ### Active Decisions
 - Ticket #1-v2 Dockerfile fix: use `uv sync --system` (not `uv pip install -r pyproject.toml`)
 - Execution order: scaffolding → SQLite schema → text extraction → Qdrant → API endpoints → agent loop
-- Once scaffolding-v2 merges, immediately start Ticket #2 (SQLite schema) and Ticket #3 (text extraction) in parallel
+- Frontend scaffolding runs in parallel with backend — no dependency
+- Frontend feature tickets (dashboard, query) can start once scaffolding merges; they'll use stub APIs until backend endpoints land
 
 ### Known Blockers and Risks
-- **RESOLVED (Cycle 25):** Original Ticket #1 stopped, replacement created
+- **RESOLVED:** Original Ticket #1 scaffolding blocker (Cycle 25)
 - **ACTIVE RISK:** 5+ PO process restarts detected — elevated system instability
-- **WATCH:** If replacement scaffolding ticket also stalls in review for 3+ cycles, consider fundamental approach change
+- **WATCH:** 4 backend tickets running simultaneously — monitor for integration conflicts
+- **WATCH:** Frontend tickets created without explicit dependency on backend endpoints — will need integration testing
 
 ### Deployment Decision
-Docker Compose local deployment. Backend on port 8800. Qdrant on port 6333 (internal only). Frontend served as static files by FastAPI in production.
+Docker Compose local deployment. Backend on port 8800. Qdrant on port 6333 (internal only). Frontend served as static files by FastAPI in production. Multi-stage Docker build for frontend assets.
 
 ## Upcoming Plan
-1. **This cycle:** Start replacement scaffolding ticket immediately
-2. **Post-merge:** Start Ticket #2 (SQLite schema) + Ticket #3 (text extraction) in parallel
-3. Continue Phase 1 sequence through tickets #4-#8
+1. **This cycle:** Monitor 4 in-progress backend tickets; start frontend scaffolding
+2. **When #2/#3/#4 merge:** Start Ticket #5 (ingest endpoint), then #8 (query endpoint)
+3. **When #5/#8 merge:** Start Ticket #6 (agent loop)
+4. **Frontend:** Scaffolding → dashboard UI → query UI (can overlap with backend)
 
 ## Completed Work Log
-- Cycle 19: Original Ticket #1 reached review status (first code output)
+- Cycle 19: Original Ticket #1 reached review status
 - Cycles 20-24: Ticket #1 stuck in review — merge queue failing silently
 - Cycle 25: ESCALATION — Stopped Ticket #1, created replacement scaffolding ticket (v2)
+- Cycle 26: Scaffolding v2 merged; 4 backend tickets started; 3 frontend tickets created
 
 <!-- PO_SECTION_END -->
