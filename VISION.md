@@ -34,51 +34,29 @@ The core value is **persistent project understanding that grows with every docum
 ## PO Memory
 
 ### Current Phase
-Phase 1 — Core ingestion pipeline + frontend scaffolding in parallel.
-
-### Progress (Cycle 34)
-- **Ticket #1 (Scaffolding v2)**: MERGED ✅
-- **Ticket #7 (Health endpoint)**: MERGED ✅
-- **Ticket #4 (Qdrant/chunking/embedding)**: MERGED ✅
-- **Ticket #10 (Frontend dashboard UI)**: MERGED ✅
-- **Ticket #9 (Frontend scaffolding)**: MERGED ✅ — resolved scaffolding anomaly
-- **Ticket #2 (SQLite)**: `in_progress` — schema blocker answered Cycle 33, should be near completion
-- **Ticket #3 (Text extraction)**: `failed` → RETRIED this cycle — critical path item
-- **Ticket #11 (Frontend query UI)**: `in_progress` — scaffolding dependency now resolved
-- **Tickets #5, #8, #6**: `todo`, waiting on upstream (#2, #3)
-
-### Active Decisions
-- Ticket #1-v2 Dockerfile fix: use `uv sync --system` (not `uv pip install -r pyproject.toml`)
-- Execution order: scaffolding → SQLite schema → text extraction → Qdrant → API endpoints → agent loop
-- Frontend scaffolding runs in parallel with backend — no dependency
-- Frontend feature tickets (dashboard, query) can start once scaffolding merges; they'll use stub APIs until backend endpoints land
-- **SQLite schema confirmed**: 8 tables (projects, documents, chunks, findings, entities, relations, chat_history, analysis_log)
-
-### Known Blockers and Risks
-- **RESOLVED:** Ticket #9 scaffolding anomaly — #10/#11 ran ahead but #9 now merged
-- **CRITICAL PATH:** #3 (text extraction) retried — must succeed for #5 and #8 to start
-- **WATCH:** #2 in progress — needs to complete for #5/#8
-- **ACTIVE RISK:** 6+ PO process restarts detected — elevated system instability
-
-### Deployment Decision
-Docker Compose local deployment. Backend on port 8800. Qdrant on port 6333 (internal only). Frontend served as static files by FastAPI in production. Multi-stage Docker build for frontend assets.
-
-## Upcoming Plan
-1. **This cycle:** Retried #3; #2 and #11 in progress
-2. **When #2 AND #3 merge:** Start Ticket #5 (ingest endpoint) and #8 (query endpoint) immediately
-3. **When #5/#8 merge:** Start Ticket #6 (agent loop)
-4. **If board clears:** Create remaining tickets (integration tests, agent analysis features, gap detection)
+Post-compaction — cycle 34
 
 ## Completed Work Log
-- Cycle 19: Original Ticket #1 reached review status
-- Cycles 20-24: Ticket #1 stuck in review — merge queue failing silently
-- Cycle 25: ESCALATION — Stopped Ticket #1, created replacement scaffolding ticket (v2)
-- Cycle 26: Scaffolding v2 merged; 4 backend tickets started; 3 frontend tickets created
-- Cycle 27: Ticket #7 merged; started Ticket #9 (frontend scaffolding)
-- Cycle 30: #2, #3, #4, #11 all in review; restarted #9
-- Cycle 31: #4 merged; started #9 again (3rd attempt)
-- Cycle 32: Started #9 again; board saturated at 8 active
-- Cycle 33: #10 merged; unblocked #2 (schema question answered)
-- Cycle 34: #9 merged; retried #3 (failed → retry)
+
+**Infrastructure & Configuration**
+- Scaffolded full repo structure with FastAPI, Pydantic Settings (MY_NOTE_ prefix), Docker Compose (app + Qdrant), and multi-stage Dockerfile; Qdrant intentionally has no external port exposure
+- Health endpoint returns `degraded` (never 500) when dependencies are down — deliberate UX decision for Docker healthcheck compatibility
+- Reviewer flagged missing config defaults; Pydantic would fail silently on incomplete `.env` without them
+
+**Embeddings & Vector Storage**
+- Chose `voyageai` SDK for batch embedding (voyage-3, 1024-dim cosine collections per project); batch size hardcoded at 128 — noted as tech debt
+- Token counting uses whitespace splitting, not tiktoken — accepted as v1 tradeoff
+- Two review rounds needed; second round surfaced bare `except Exception` masking API errors and missing `QDRANT_URL` validation at startup
+
+**Frontend Scaffolding**
+- React 19 + Vite + Tailwind CSS 4 + pnpm; Tailwind 4 dropped `tailwind.config.ts` — reviewer flagged this as potentially misconfigured but defaults proved sufficient
+- Router setup was minimal in PR; reviewer noted `BrowserRouter`/`Routes` absent from `App.tsx` despite ticket requiring them — approved as minor
+- FastAPI serves production build as static files; Vite proxies to `:8800` in dev
+
+**Project Dashboard UI**
+- Built project list, detail, and document upload UI (file, URL, raw text ingestion paths)
+- No file size validation on upload — could cause silent timeouts with large files; flagged but not blocking
+- Document list has no pagination — potential performance issue at scale, deferred
+
 
 <!-- PO_SECTION_END -->
