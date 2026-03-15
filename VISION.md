@@ -34,30 +34,32 @@ The core value is **persistent project understanding that grows with every docum
 ## PO Memory
 
 ### Current Phase
-Phase 1 — Core ingestion pipeline. 8 tickets created and correctly sequenced. ZERO executed after 15+ cycles.
+Phase 1 — Core ingestion pipeline. 8 tickets created and correctly sequenced.
+
+### Progress (Cycle 19)
+- **Ticket #1 (Project scaffolding)**: Reached `review` status — first code output after 18 cycles. Dev agent confirmed operational.
+- Tickets #2–#8: `todo / po_proposed`, waiting for Ticket #1 to merge.
 
 ### Active Decisions
 - Ticket #1 Dockerfile fix: use `uv sync --system` (not `uv pip install -r pyproject.toml`)
 - Execution order: scaffolding → SQLite schema → text extraction → Qdrant → API endpoints → agent loop
-- Raised critical escalation to user (cycle 15) requesting dev agent verification
+- Once Ticket #1 merges, immediately start Ticket #2 (SQLite schema) and Ticket #3 (text extraction) in parallel if dependencies allow
 
 ### Known Blockers and Risks
-- **CRITICAL (since cycle 1):** No implementing agent has produced any output in 15 cycles across 6+ restarts
-- **Ticket #1 blocked:** Dockerfile syntax error — answer ready (`uv sync --system`), need UUID to unblock
-- **Root cause:** Either no dev agent is connected, or dispatch mechanism is broken — PO cannot diagnose further
-- **Need from user:** Confirm dev agent is running; provide ticket UUIDs so PO can issue start_ticket/answer_ticket
+- **RESOLVED:** Dev agent is now producing output (Ticket #1 reached review)
+- **Remaining risk:** Review/merge pipeline untested — first ticket going through full lifecycle
+- If Ticket #1 review fails, retry immediately — it's the critical path for all Phase 1 work
 
 ### Deployment Decision
 Docker Compose local deployment. Backend on port 8800. Qdrant on port 6333 (internal only). Frontend served as static files by FastAPI in production.
 
 ## Upcoming Plan
-Once dev agent is confirmed running:
-1. Unblock Ticket #1 (answer Dockerfile question)
-2. Start Ticket #1 (scaffolding)
-3. Start Ticket #2 (SQLite schema) once #1 completes
-4. Continue Phase 1 sequence through tickets #3-#8
+1. Wait for Ticket #1 review to complete
+2. Start Ticket #2 (SQLite schema) immediately after #1 merges
+3. Start Ticket #3 (text extraction) — can potentially run in parallel with #2
+4. Continue Phase 1 sequence through tickets #4-#8
 
 ## Completed Work Log
-No work completed yet. (Cycle 15)
+- Cycle 19: Ticket #1 reached review status (first code output)
 
 <!-- PO_SECTION_END -->
