@@ -36,13 +36,16 @@ The core value is **persistent project understanding that grows with every docum
 ### Current Phase
 Phase 1 — Core ingestion pipeline + frontend scaffolding in parallel.
 
-### Progress (Cycle 30)
+### Progress (Cycle 31)
 - **Ticket #1 (Scaffolding v2)**: MERGED ✅
 - **Ticket #7 (Health endpoint)**: MERGED ✅
-- **Tickets #2 (SQLite), #3 (Extraction), #4 (Qdrant)**: `review` — awaiting auto-merge
-- **Ticket #11 (Frontend query UI)**: `review` — anomaly: reached review before dependency #9
-- **Ticket #9 (Frontend scaffolding)**: STARTED this cycle (again — was started cycle 27 but reverted to todo after restarts)
-- **Tickets #5, #6, #8, #10**: `todo`, correctly waiting on upstream
+- **Ticket #4 (Qdrant/chunking/embedding)**: MERGED ✅
+- **Ticket #2 (SQLite)**: `in_progress` — was reported as review in cycle 30, now back to in_progress
+- **Ticket #3 (Text extraction)**: `in_progress` — same as #2
+- **Ticket #9 (Frontend scaffolding)**: STARTED this cycle (3rd attempt)
+- **Ticket #10 (Frontend dashboard UI)**: `in_progress` — anomaly: running before #9 merges
+- **Ticket #11 (Frontend query UI)**: `in_progress` — anomaly: running before #9 merges
+- **Tickets #5, #8, #6**: `todo`, waiting on upstream (#2, #3)
 
 ### Active Decisions
 - Ticket #1-v2 Dockerfile fix: use `uv sync --system` (not `uv pip install -r pyproject.toml`)
@@ -53,19 +56,20 @@ Phase 1 — Core ingestion pipeline + frontend scaffolding in parallel.
 ### Known Blockers and Risks
 - **RESOLVED:** Original Ticket #1 scaffolding blocker (Cycle 25)
 - **RESOLVED:** Ticket #7 health endpoint (Cycle 27)
-- **ANOMALY:** Ticket #11 in review despite #9 (dependency) still being todo — monitor merge outcome
+- **RESOLVED:** Ticket #4 Qdrant/chunking/embedding (Cycle 31)
+- **ANOMALY:** Tickets #10 and #11 in-progress despite #9 (dependency) still not merged — monitor for rework
+- **WATCH:** #2 and #3 regressed from review to in_progress — possible session restart; monitor closely
 - **ACTIVE RISK:** 6+ PO process restarts detected — elevated system instability
-- **WATCH:** 3 backend tickets in review simultaneously (#2, #3, #4) — monitor for integration conflicts at merge
 - **WATCH:** Frontend tickets created without explicit dependency on backend endpoints — will need integration testing
 
 ### Deployment Decision
 Docker Compose local deployment. Backend on port 8800. Qdrant on port 6333 (internal only). Frontend served as static files by FastAPI in production. Multi-stage Docker build for frontend assets.
 
 ## Upcoming Plan
-1. **This cycle:** Started #9 (frontend scaffolding); 4 tickets in review awaiting merge
-2. **When #2/#3/#4 merge:** Start Ticket #5 (ingest endpoint), then #8 (query endpoint)
+1. **This cycle:** Started #9 (frontend scaffolding); #2 and #3 in progress
+2. **When #2/#3 merge:** Start Ticket #5 (ingest endpoint), then #8 (query endpoint)
 3. **When #5/#8 merge:** Start Ticket #6 (agent loop)
-4. **When #9 merges:** Start #10 (dashboard UI); reconcile #11 status
+4. **When #9 merges:** Reconcile #10/#11 status, ensure they build on scaffolding properly
 
 ## Completed Work Log
 - Cycle 19: Original Ticket #1 reached review status
@@ -74,5 +78,6 @@ Docker Compose local deployment. Backend on port 8800. Qdrant on port 6333 (inte
 - Cycle 26: Scaffolding v2 merged; 4 backend tickets started; 3 frontend tickets created
 - Cycle 27: Ticket #7 merged; started Ticket #9 (frontend scaffolding)
 - Cycle 30: #2, #3, #4, #11 all in review; restarted #9
+- Cycle 31: #4 merged; started #9 again (3rd attempt)
 
 <!-- PO_SECTION_END -->
