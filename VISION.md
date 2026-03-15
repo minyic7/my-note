@@ -34,25 +34,30 @@ The core value is **persistent project understanding that grows with every docum
 ## PO Memory
 
 ### Current Phase
-Phase 1 — Core ingestion pipeline. Original 8 tickets created but ALL stuck for 13+ cycles. Fresh bootstrapping ticket created in cycle 14 with no dependencies as workaround.
+Phase 1 — Core ingestion pipeline. 8 tickets created and correctly sequenced. ZERO executed after 15+ cycles.
 
 ### Active Decisions
-- Created replacement scaffolding ticket (cycle 14) with zero dependencies to bypass stuck ticket #1
-- Original tickets #2-#8 will need their dependency updated to point to new ticket once it completes
-- Execution order follows VISION.md Phase 1
+- Ticket #1 Dockerfile fix: use `uv sync --system` (not `uv pip install -r pyproject.toml`)
+- Execution order: scaffolding → SQLite schema → text extraction → Qdrant → API endpoints → agent loop
+- Raised critical escalation to user (cycle 15) requesting dev agent verification
 
 ### Known Blockers and Risks
-- **CRITICAL (since cycle 1):** No implementing agent has produced output in 14 cycles across 6 restarts
-- **Mitigation attempted (cycle 14):** Fresh ticket with no dependencies, hoping it gets dispatched
-- **If this fails:** The issue is definitively in agent dispatch/connection, not ticket state
+- **CRITICAL (since cycle 1):** No implementing agent has produced any output in 15 cycles across 6+ restarts
+- **Ticket #1 blocked:** Dockerfile syntax error — answer ready (`uv sync --system`), need UUID to unblock
+- **Root cause:** Either no dev agent is connected, or dispatch mechanism is broken — PO cannot diagnose further
+- **Need from user:** Confirm dev agent is running; provide ticket UUIDs so PO can issue start_ticket/answer_ticket
 
 ### Deployment Decision
 Docker Compose local deployment. Backend on port 8800. Qdrant on port 6333 (internal only). Frontend served as static files by FastAPI in production.
 
 ## Upcoming Plan
-Phase 1 — core ingestion pipeline. If fresh scaffolding ticket succeeds, proceed with SQLite schema → text extraction → Qdrant integration → API endpoints → agent loop.
+Once dev agent is confirmed running:
+1. Unblock Ticket #1 (answer Dockerfile question)
+2. Start Ticket #1 (scaffolding)
+3. Start Ticket #2 (SQLite schema) once #1 completes
+4. Continue Phase 1 sequence through tickets #3-#8
 
 ## Completed Work Log
-No work completed yet. (Cycle 14)
+No work completed yet. (Cycle 15)
 
 <!-- PO_SECTION_END -->
