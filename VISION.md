@@ -36,15 +36,15 @@ The core value is **persistent project understanding that grows with every docum
 ### Current Phase
 Phase 1 — Core ingestion pipeline + frontend scaffolding in parallel.
 
-### Progress (Cycle 33)
+### Progress (Cycle 34)
 - **Ticket #1 (Scaffolding v2)**: MERGED ✅
 - **Ticket #7 (Health endpoint)**: MERGED ✅
 - **Ticket #4 (Qdrant/chunking/embedding)**: MERGED ✅
 - **Ticket #10 (Frontend dashboard UI)**: MERGED ✅
-- **Ticket #2 (SQLite)**: Was BLOCKED — answered blocker this cycle, should resume
-- **Ticket #3 (Text extraction)**: `review` — 2nd review cycle, watching for regression
-- **Ticket #9 (Frontend scaffolding)**: `in_progress` — 3rd attempt; #10 already merged ahead of it
-- **Ticket #11 (Frontend query UI)**: `in_progress` — ahead of #9 scaffolding
+- **Ticket #9 (Frontend scaffolding)**: MERGED ✅ — resolved scaffolding anomaly
+- **Ticket #2 (SQLite)**: `in_progress` — schema blocker answered Cycle 33, should be near completion
+- **Ticket #3 (Text extraction)**: `failed` → RETRIED this cycle — critical path item
+- **Ticket #11 (Frontend query UI)**: `in_progress` — scaffolding dependency now resolved
 - **Tickets #5, #8, #6**: `todo`, waiting on upstream (#2, #3)
 
 ### Active Decisions
@@ -52,24 +52,22 @@ Phase 1 — Core ingestion pipeline + frontend scaffolding in parallel.
 - Execution order: scaffolding → SQLite schema → text extraction → Qdrant → API endpoints → agent loop
 - Frontend scaffolding runs in parallel with backend — no dependency
 - Frontend feature tickets (dashboard, query) can start once scaffolding merges; they'll use stub APIs until backend endpoints land
-- **SQLite schema confirmed**: 8 tables (projects, documents, chunks, findings, entities, relations, chat_history, analysis_log) — decision given to unblock #2
+- **SQLite schema confirmed**: 8 tables (projects, documents, chunks, findings, entities, relations, chat_history, analysis_log)
 
 ### Known Blockers and Risks
-- **RESOLVED:** Ticket #2 blocker — answered schema question (Cycle 33)
-- **ANOMALY:** Ticket #10 merged and #11 in-flight despite #9 (dependency) still not merged — will need reconciliation
-- **WATCH:** #3 in 2nd review — if regresses again, stop and recreate
-- **WATCH:** #9 on 3rd attempt — if fails again, stop and recreate
+- **RESOLVED:** Ticket #9 scaffolding anomaly — #10/#11 ran ahead but #9 now merged
+- **CRITICAL PATH:** #3 (text extraction) retried — must succeed for #5 and #8 to start
+- **WATCH:** #2 in progress — needs to complete for #5/#8
 - **ACTIVE RISK:** 6+ PO process restarts detected — elevated system instability
 
 ### Deployment Decision
 Docker Compose local deployment. Backend on port 8800. Qdrant on port 6333 (internal only). Frontend served as static files by FastAPI in production. Multi-stage Docker build for frontend assets.
 
 ## Upcoming Plan
-1. **This cycle:** Unblocked #2; #3 in review; #9 and #11 in progress
-2. **When #2/#3 merge:** Start Ticket #5 (ingest endpoint), then #8 (query endpoint)
+1. **This cycle:** Retried #3; #2 and #11 in progress
+2. **When #2 AND #3 merge:** Start Ticket #5 (ingest endpoint) and #8 (query endpoint) immediately
 3. **When #5/#8 merge:** Start Ticket #6 (agent loop)
-4. **When #9 merges:** Reconcile #10/#11, ensure they build correctly on scaffolding
-5. **If board clears:** Consider creating remaining tickets (integration tests, agent analysis features)
+4. **If board clears:** Create remaining tickets (integration tests, agent analysis features, gap detection)
 
 ## Completed Work Log
 - Cycle 19: Original Ticket #1 reached review status
@@ -81,5 +79,6 @@ Docker Compose local deployment. Backend on port 8800. Qdrant on port 6333 (inte
 - Cycle 31: #4 merged; started #9 again (3rd attempt)
 - Cycle 32: Started #9 again; board saturated at 8 active
 - Cycle 33: #10 merged; unblocked #2 (schema question answered)
+- Cycle 34: #9 merged; retried #3 (failed → retry)
 
 <!-- PO_SECTION_END -->
