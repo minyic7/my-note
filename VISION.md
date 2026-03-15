@@ -36,9 +36,9 @@ The core value is **persistent project understanding that grows with every docum
 ### Current Phase
 Phase 1 — Core ingestion pipeline. 8 tickets created and correctly sequenced.
 
-### Progress (Cycle 23)
-- **Ticket #1 (Project scaffolding)**: Still in `review` — has been stuck since Cycle 19 (5 cycles). Merge queue should auto-merge. No PO action available to force merge.
-- Tickets #2–#8: `todo / po_proposed`, blocked on Ticket #1 merge.
+### Progress (Cycle 24)
+- **Ticket #1 (Project scaffolding)**: Still in `review` — stuck since Cycle 19 (6 cycles now). Merge queue appears to be failing silently.
+- Tickets #2–#8: `todo / po_proposed`, all blocked on Ticket #1 merge.
 
 ### Active Decisions
 - Ticket #1 Dockerfile fix: use `uv sync --system` (not `uv pip install -r pyproject.toml`)
@@ -46,23 +46,22 @@ Phase 1 — Core ingestion pipeline. 8 tickets created and correctly sequenced.
 - Once Ticket #1 merges, immediately start Ticket #2 (SQLite schema) and Ticket #3 (text extraction) in parallel
 
 ### Known Blockers and Risks
-- **CRITICAL:** Ticket #1 stuck in review for 5+ cycles (19→23). Merge queue may be failing silently.
-- **ACTIVE RISK:** 5 PO process restarts detected in ~32 minutes — elevated system instability
-- If Ticket #1 doesn't merge by Cycle 25, consider stopping and recreating it
+- **CRITICAL:** Ticket #1 stuck in review for 6 cycles (19→24). Merge queue failing silently.
+- **ACTIVE RISK:** 5 PO process restarts detected — elevated system instability
+- **ESCALATION PLAN — CYCLE 25 (NEXT CYCLE):** If Ticket #1 is STILL not merged, STOP the ticket and CREATE a new replacement ticket with identical scope. Do not wait further.
 
 ### Deployment Decision
 Docker Compose local deployment. Backend on port 8800. Qdrant on port 6333 (internal only). Frontend served as static files by FastAPI in production.
 
 ## Upcoming Plan
-1. **THIS/NEXT CYCLE:** Wait for Ticket #1 auto-merge
+1. **CYCLE 25 (NEXT):** If Ticket #1 still in review → STOP it and recreate immediately
 2. **Post-merge immediately:** Start Ticket #2 (SQLite schema) + Ticket #3 (text extraction) in parallel
 3. Continue Phase 1 sequence through tickets #4-#8
-4. If Ticket #1 still not merged by Cycle 25: stop and recreate the ticket
 
 ## Completed Work Log
 - Cycle 19: Ticket #1 reached review status (first code output)
 - Cycles 20-21: Ticket #1 in review, awaiting merge
 - Cycle 22: Merge action issued for Ticket #1 (no visible effect)
-- Cycle 23: Ticket #1 still in review — waiting on merge queue
+- Cycles 23-24: Ticket #1 still in review — merge queue stuck. Escalation deadline set for Cycle 25.
 
 <!-- PO_SECTION_END -->
