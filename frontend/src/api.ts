@@ -4,6 +4,7 @@ import type {
   CreateProjectRequest,
   IngestUrlRequest,
   IngestTextRequest,
+  HealthStatus,
 } from "./types";
 
 const BASE = "/api";
@@ -76,4 +77,8 @@ export function ingestText(
     method: "POST",
     body: JSON.stringify(body),
   });
+}
+
+export function getHealth(): Promise<HealthStatus> {
+  return request("/health");
 }

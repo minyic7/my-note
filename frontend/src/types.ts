@@ -31,3 +31,10 @@ export interface IngestTextRequest {
   text: string;
   title: string;
 }
+
+export interface HealthStatus {
+  status: string;
+  qdrant: boolean;
+  sqlite: boolean;
+  agent_running: boolean;
+}
