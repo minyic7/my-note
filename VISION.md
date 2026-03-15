@@ -36,30 +36,31 @@ The core value is **persistent project understanding that grows with every docum
 ### Current Phase
 Phase 1 — Core ingestion pipeline. 8 tickets created and correctly sequenced.
 
-### Progress (Cycle 19)
-- **Ticket #1 (Project scaffolding)**: Reached `review` status — first code output after 18 cycles. Dev agent confirmed operational.
-- Tickets #2–#8: `todo / po_proposed`, waiting for Ticket #1 to merge.
+### Progress (Cycle 20)
+- **Ticket #1 (Project scaffolding)**: In `review` status — first code output. Awaiting merge.
+- Tickets #2–#8: `todo / po_proposed`, blocked on Ticket #1 merge.
 
 ### Active Decisions
 - Ticket #1 Dockerfile fix: use `uv sync --system` (not `uv pip install -r pyproject.toml`)
 - Execution order: scaffolding → SQLite schema → text extraction → Qdrant → API endpoints → agent loop
-- Once Ticket #1 merges, immediately start Ticket #2 (SQLite schema) and Ticket #3 (text extraction) in parallel if dependencies allow
+- Once Ticket #1 merges, immediately start Ticket #2 (SQLite schema) and Ticket #3 (text extraction) in parallel
 
 ### Known Blockers and Risks
 - **RESOLVED:** Dev agent is now producing output (Ticket #1 reached review)
-- **Remaining risk:** Review/merge pipeline untested — first ticket going through full lifecycle
+- **ACTIVE RISK:** Review/merge pipeline untested — Ticket #1 is the first ticket going through full lifecycle
 - If Ticket #1 review fails, retry immediately — it's the critical path for all Phase 1 work
 
 ### Deployment Decision
 Docker Compose local deployment. Backend on port 8800. Qdrant on port 6333 (internal only). Frontend served as static files by FastAPI in production.
 
 ## Upcoming Plan
-1. Wait for Ticket #1 review to complete
-2. Start Ticket #2 (SQLite schema) immediately after #1 merges
-3. Start Ticket #3 (text extraction) — can potentially run in parallel with #2
-4. Continue Phase 1 sequence through tickets #4-#8
+1. **THIS CYCLE:** Wait for Ticket #1 review to complete and merge
+2. **NEXT CYCLE:** Start Ticket #2 (SQLite schema) + Ticket #3 (text extraction) in parallel
+3. Continue Phase 1 sequence through tickets #4-#8
+4. If Ticket #1 review fails: retry immediately
 
 ## Completed Work Log
 - Cycle 19: Ticket #1 reached review status (first code output)
+- Cycle 20: Ticket #1 still in review, awaiting merge
 
 <!-- PO_SECTION_END -->
