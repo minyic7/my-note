@@ -1,0 +1,7 @@
+services:
+  app:
+    build: .
+    volumes:
+      - ./backend/src:/app/src
+      - my_note_data:/data
+    command: ["uvicorn", "my_note.main:app", "--host", "0.0.0.0", "--port", "8800", "--reload", "--reload-dir", "/app/src"]

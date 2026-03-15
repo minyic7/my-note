@@ -1,0 +1,27 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8800:8800"
+    volumes:
+      - my_note_data:/data
+    env_file: .env
+    depends_on:
+      qdrant:
+        condition: service_healthy
+    restart: unless-stopped
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    volumes:
+      - qdrant_data:/qdrant/storage
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:6333/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  my_note_data:
+  qdrant_data:
