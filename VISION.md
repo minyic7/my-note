@@ -36,8 +36,8 @@ The core value is **persistent project understanding that grows with every docum
 ### Current Phase
 Phase 1 — Core ingestion pipeline. 8 tickets created and correctly sequenced.
 
-### Progress (Cycle 20)
-- **Ticket #1 (Project scaffolding)**: In `review` status — first code output. Awaiting merge.
+### Progress (Cycle 21)
+- **Ticket #1 (Project scaffolding)**: In `review` status — awaiting merge. This is the critical path.
 - Tickets #2–#8: `todo / po_proposed`, blocked on Ticket #1 merge.
 
 ### Active Decisions
@@ -55,12 +55,12 @@ Docker Compose local deployment. Backend on port 8800. Qdrant on port 6333 (inte
 
 ## Upcoming Plan
 1. **THIS CYCLE:** Wait for Ticket #1 review to complete and merge
-2. **NEXT CYCLE:** Start Ticket #2 (SQLite schema) + Ticket #3 (text extraction) in parallel
+2. **NEXT CYCLE (post-merge):** Start Ticket #2 (SQLite schema) + Ticket #3 (text extraction) in parallel
 3. Continue Phase 1 sequence through tickets #4-#8
 4. If Ticket #1 review fails: retry immediately
 
 ## Completed Work Log
 - Cycle 19: Ticket #1 reached review status (first code output)
-- Cycle 20: Ticket #1 still in review, awaiting merge
+- Cycles 20-21: Ticket #1 in review, awaiting merge
 
 <!-- PO_SECTION_END -->
