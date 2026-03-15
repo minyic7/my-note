@@ -34,34 +34,34 @@ The core value is **persistent project understanding that grows with every docum
 ## PO Memory
 
 ### Current Phase
-Phase 1 — Core ingestion pipeline. 8 tickets created and correctly sequenced.
+Phase 1 — Core ingestion pipeline. Escalation executed at Cycle 25.
 
-### Progress (Cycle 24)
-- **Ticket #1 (Project scaffolding)**: Still in `review` — stuck since Cycle 19 (6 cycles now). Merge queue appears to be failing silently.
-- Tickets #2–#8: `todo / po_proposed`, all blocked on Ticket #1 merge.
+### Progress (Cycle 25)
+- **Ticket #1 (Original scaffolding)**: STOPPED — was stuck in `review` for 6 cycles (19→25). Merge queue never resolved.
+- **Ticket #1-v2 (Replacement scaffolding)**: CREATED this cycle. Identical scope + Dockerfile fix (`uv sync --system`).
+- Tickets #2–#8: `todo / po_proposed`, blocked on scaffolding completion.
 
 ### Active Decisions
-- Ticket #1 Dockerfile fix: use `uv sync --system` (not `uv pip install -r pyproject.toml`)
+- Ticket #1-v2 Dockerfile fix: use `uv sync --system` (not `uv pip install -r pyproject.toml`)
 - Execution order: scaffolding → SQLite schema → text extraction → Qdrant → API endpoints → agent loop
-- Once Ticket #1 merges, immediately start Ticket #2 (SQLite schema) and Ticket #3 (text extraction) in parallel
+- Once scaffolding-v2 merges, immediately start Ticket #2 (SQLite schema) and Ticket #3 (text extraction) in parallel
 
 ### Known Blockers and Risks
-- **CRITICAL:** Ticket #1 stuck in review for 6 cycles (19→24). Merge queue failing silently.
-- **ACTIVE RISK:** 5 PO process restarts detected — elevated system instability
-- **ESCALATION PLAN — CYCLE 25 (NEXT CYCLE):** If Ticket #1 is STILL not merged, STOP the ticket and CREATE a new replacement ticket with identical scope. Do not wait further.
+- **RESOLVED (Cycle 25):** Original Ticket #1 stopped, replacement created
+- **ACTIVE RISK:** 5+ PO process restarts detected — elevated system instability
+- **WATCH:** If replacement scaffolding ticket also stalls in review for 3+ cycles, consider fundamental approach change
 
 ### Deployment Decision
 Docker Compose local deployment. Backend on port 8800. Qdrant on port 6333 (internal only). Frontend served as static files by FastAPI in production.
 
 ## Upcoming Plan
-1. **CYCLE 25 (NEXT):** If Ticket #1 still in review → STOP it and recreate immediately
-2. **Post-merge immediately:** Start Ticket #2 (SQLite schema) + Ticket #3 (text extraction) in parallel
+1. **This cycle:** Start replacement scaffolding ticket immediately
+2. **Post-merge:** Start Ticket #2 (SQLite schema) + Ticket #3 (text extraction) in parallel
 3. Continue Phase 1 sequence through tickets #4-#8
 
 ## Completed Work Log
-- Cycle 19: Ticket #1 reached review status (first code output)
-- Cycles 20-21: Ticket #1 in review, awaiting merge
-- Cycle 22: Merge action issued for Ticket #1 (no visible effect)
-- Cycles 23-24: Ticket #1 still in review — merge queue stuck. Escalation deadline set for Cycle 25.
+- Cycle 19: Original Ticket #1 reached review status (first code output)
+- Cycles 20-24: Ticket #1 stuck in review — merge queue failing silently
+- Cycle 25: ESCALATION — Stopped Ticket #1, created replacement scaffolding ticket (v2)
 
 <!-- PO_SECTION_END -->
