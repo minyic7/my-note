@@ -36,8 +36,8 @@ The core value is **persistent project understanding that grows with every docum
 ### Current Phase
 Phase 1 — Core ingestion pipeline. 8 tickets created and correctly sequenced.
 
-### Progress (Cycle 21)
-- **Ticket #1 (Project scaffolding)**: In `review` status — awaiting merge. This is the critical path.
+### Progress (Cycle 22)
+- **Ticket #1 (Project scaffolding)**: Merge attempted this cycle. Has been in `review` since Cycle 19.
 - Tickets #2–#8: `todo / po_proposed`, blocked on Ticket #1 merge.
 
 ### Active Decisions
@@ -46,21 +46,22 @@ Phase 1 — Core ingestion pipeline. 8 tickets created and correctly sequenced.
 - Once Ticket #1 merges, immediately start Ticket #2 (SQLite schema) and Ticket #3 (text extraction) in parallel
 
 ### Known Blockers and Risks
-- **RESOLVED:** Dev agent is now producing output (Ticket #1 reached review)
-- **ACTIVE RISK:** Review/merge pipeline untested — Ticket #1 is the first ticket going through full lifecycle
-- If Ticket #1 review fails, retry immediately — it's the critical path for all Phase 1 work
+- **ACTIVE:** Ticket #1 has been in review for 4+ cycles (19→22). Merge pipeline may be stuck.
+- **ACTIVE RISK:** 4 PO process restarts in ~20 minutes — system stability concern
+- If Ticket #1 merge fails, retry immediately — it's the critical path for all Phase 1 work
 
 ### Deployment Decision
 Docker Compose local deployment. Backend on port 8800. Qdrant on port 6333 (internal only). Frontend served as static files by FastAPI in production.
 
 ## Upcoming Plan
-1. **THIS CYCLE:** Wait for Ticket #1 review to complete and merge
+1. **THIS CYCLE:** Merge Ticket #1
 2. **NEXT CYCLE (post-merge):** Start Ticket #2 (SQLite schema) + Ticket #3 (text extraction) in parallel
 3. Continue Phase 1 sequence through tickets #4-#8
-4. If Ticket #1 review fails: retry immediately
+4. If Ticket #1 merge fails: retry immediately
 
 ## Completed Work Log
 - Cycle 19: Ticket #1 reached review status (first code output)
 - Cycles 20-21: Ticket #1 in review, awaiting merge
+- Cycle 22: Merge action issued for Ticket #1
 
 <!-- PO_SECTION_END -->
