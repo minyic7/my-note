@@ -18,8 +18,20 @@ _agent_task: asyncio.Task | None = None  # noqa: FA100
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup: ensure data directory exists
-    Path(settings.data_dir).mkdir(parents=True, exist_ok=True)
+    data_dir = Path(settings.data_dir)
+    data_dir.mkdir(parents=True, exist_ok=True)
+
+    # Initialize SQLite knowledge database
+    from my_note.services.knowledge_db import KnowledgeDB
+
+    db_path = str(data_dir / "knowledge.db")
+    app.state.db = await KnowledgeDB.init_db(db_path)
+
     yield
+
+    # Shutdown: close database
+    await app.state.db.close()
+
     # Shutdown: cancel agent task if running
     global _agent_task  # noqa: PLW0603
     if _agent_task is not None and not _agent_task.done():
